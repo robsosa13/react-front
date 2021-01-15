@@ -11,7 +11,11 @@ const products = [
     countInStock: 10,
     rating: 4.5,
     numReviews: 12,
-
+    test: {
+      nombre:'oscar',
+      apellido:'vaca',
+      Edad:13
+    },
   },
   {
     _id: '2',
@@ -25,6 +29,11 @@ const products = [
     countInStock: 7,
     rating: 4.0,
     numReviews: 8,
+    test: {
+      nombre:'daniel',
+      apellido:'lino',
+      Edad:13
+    },
 
   },
   {
@@ -39,6 +48,11 @@ const products = [
     countInStock: 5,
     rating: 3,
     numReviews: 12,
+    test: {
+      nombre:'fernando',
+      apellido:'vasquez',
+      Edad:13
+    },
 
   },
   {
@@ -51,8 +65,13 @@ const products = [
     category: 'Electronics',
     price: 399.99,
     countInStock: 11,
-    rating: 5,
+    rating: 1,
     numReviews: 12,
+    test: {
+      nombre:'Roberto',
+      apellido:'Sosa',
+      Edad:13
+    },
 
   },
   {
@@ -65,8 +84,13 @@ const products = [
     category: 'Electronics',
     price: 49.99,
     countInStock: 7,
-    rating: 3.5,
+    rating: 1,
     numReviews: 10,
+    test: {
+      nombre:'sandra',
+      apellido:'saavedra',
+      Edad:13
+    },
 
   },
   {
@@ -81,6 +105,11 @@ const products = [
     countInStock: 0,
     rating: 4,
     numReviews: 12,
+    test: {
+      nombre:'victor',
+      apellido:'aranibar',
+      Edad:15
+    },
 
   },
 ]
