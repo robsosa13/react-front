@@ -14,11 +14,20 @@ const Header = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto">
-                            <LinkContainer to='/Home'>
+                            <LinkContainer to='/'>
                                 <Nav.Link >Home</Nav.Link>
                             </LinkContainer>
+                            <LinkContainer to='/marca-hora'>
+                                <Nav.Link >Crear Horario</Nav.Link>
+                            </LinkContainer>
                             <LinkContainer to='/planillas'>
-                                <Nav.Link >RRHH</Nav.Link>
+                                <Nav.Link >Planillas</Nav.Link>
+                            </LinkContainer>
+                            <LinkContainer to='/planillaMaster'>
+                                <Nav.Link >Planilla Master</Nav.Link>
+                            </LinkContainer>
+                            <LinkContainer to='/empleados'>
+                                <Nav.Link >Empleados</Nav.Link>
                             </LinkContainer>
                         </Nav>
 

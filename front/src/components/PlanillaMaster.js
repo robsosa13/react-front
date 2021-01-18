@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table } from 'react-bootstrap';
+import { Container, Table } from 'react-bootstrap';
 
 //import products from '../planilla/products'
 class PlanillasMaster extends Component {
@@ -39,10 +39,16 @@ class PlanillasMaster extends Component {
         console.log('testing', planillaMas)
         return (
             <>
-                <Table striped bordered hover>
+            <Container>
+            <h2>Planillas</h2>
+                    <br />
+                    <button className="btn btn-success" >Agregar Empleado </button>
+                    <br />
+                    <br />
+                <Table striped bordered hover size="sm">
                     <thead>
                         <tr>
-                            <th>Caja</th>
+                            <th >Caja</th>
                             <th>Razon Social</th>
                             <th>Logo</th>
                             <th>Nit</th>
@@ -107,7 +113,7 @@ class PlanillasMaster extends Component {
 
                     </tbody>
                 </Table>
-
+                </Container>
             </>
         )
     }
