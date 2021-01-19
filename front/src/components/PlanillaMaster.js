@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Container, Table } from 'react-bootstrap';
+import { Container, Table,Button } from 'react-bootstrap';
+import { BrowserRouter, Route, Link } from "react-router-dom";
 
 //import products from '../planilla/products'
 class PlanillasMaster extends Component {
@@ -48,7 +49,7 @@ class PlanillasMaster extends Component {
                 <Table striped bordered hover size="sm">
                     <thead>
                         <tr>
-                            <th >Caja</th>
+                            <th className="text-center" >Caja</th>
                             <th>Razon Social</th>
                             <th>Logo</th>
                             <th>Nit</th>
@@ -62,6 +63,7 @@ class PlanillasMaster extends Component {
                             <th>UFV Inicial</th>
                             <th>Teléfono</th>
                             <th>UFV Final</th>
+                            <th>Opciones </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -91,26 +93,13 @@ class PlanillasMaster extends Component {
                                         <td>{item.direccion}</td>
                                         <td>{item.ufv_inicial}</td>
                                         <td>{item.telefono}</td>
-                                        {/* <th className="text-center" >{item.caja}</th>
-                                <th className="text-center" >{item.caja}</th>
-                                <th className="text-center" >{item.caja}</th>
-                                <th className="text-center" >{item.caja}</th> */}
-
-                                        {/* <td className="text-center">{item.nombre}</td>
-                                <td className="text-center">{item.stock}</td>
-                                <td className="text-center">{item.precio}</td> */}
+                                        <td>{item.ufv_final}</td>
+                                        <td><Link to="/planillas" className="btn btn-primary">Planilla</Link></td>
+                                        {/* <td>  <Button variant="outline-primary">Planilla</Button>{' '}</td> */}
                                     </tr>
-
                                 ))
                                 :
                                 <tr></tr>}
-                        {/* <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr> */}
-
                     </tbody>
                 </Table>
                 </Container>

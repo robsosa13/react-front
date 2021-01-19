@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import { Table,  Modal, Container,ModalBody,ModalFooter, Button, Form, Row, Col } from 'react-bootstrap';
-import "bootstrap/dist/css/bootstrap.min.css"
+//import "bootstrap/dist/css/bootstrap.min.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
+import Modal1 from './Modal1'
 class EmpleadoPlanilla extends Component {
     constructor(...props) {
         super(...props);
         this.state = {
             empleadoP: [], 
             show: false,
-            modalEliminar:false ,
+            showModalEliminar:false ,
             form: {
                 idusuario :"",
                 ocupacion:"",
@@ -20,7 +21,6 @@ class EmpleadoPlanilla extends Component {
             }
         }
     }
-
     cargarDatos() {
         fetch('http://localhost:4201/api/empleado-planilla',
             {
@@ -47,8 +47,9 @@ class EmpleadoPlanilla extends Component {
     handleModal() {
         this.setState({ show: !this.state.show })
     }
+
     handleModalEliminar() {
-        this.setState({ modalEliminar: !this.state.modalEliminar })
+        this.setState({ show: !this.state.showModalEliminar })
     }
     //segundoPlano
     handleChange = async e => {
@@ -71,7 +72,7 @@ class EmpleadoPlanilla extends Component {
         
     }
     seleccionarEmpleado=(empleado)=>{
-        console.log('test')
+        console.log('test',empleado)
         this.setState({
             tipoModal:'actualizar',
             form:{
@@ -80,7 +81,9 @@ class EmpleadoPlanilla extends Component {
                 fecha_ingreso:empleado.fecha_ingreso,
                 fecha_salida:empleado.fecha_salida  
             }
+            
         })
+        console.log('test',this.state.form)
     }
     peticionPut=()=>{
         axios.put('')
@@ -94,7 +97,7 @@ class EmpleadoPlanilla extends Component {
     render() {
         const { empleadoP } = this.state;
         const {form}=this.state
-        console.log('Empleado', empleadoP)
+
         return (
             <>
                 <Container>
@@ -127,7 +130,11 @@ class EmpleadoPlanilla extends Component {
                                             <td>
                                                 <button className="btn btn-primary" onClick={()=>this.seleccionarEmpleado(item)} > <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>   </button>
                                                 {"   "}
-                                                <button className="btn btn-danger" onClick={()=>{this.seleccionarEmpleado(item);this.setState({modalEliminar:true})}}> <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>   </button>
+                                                <Modal1/>
+                                                {/* <button className="btn btn-danger" onClick={()=>{this.handleModalEliminar()}}> <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>   </button> */}
+                                                
+                                                {/* <button className="btn btn-success" onClick={() => { this.setState({form:null,tipoModal:'insertar'}); this.handleModal() }} >Agregar Empleado </button> */}
+                  
 
                                             </td>
                                         </tr>
@@ -186,22 +193,23 @@ class EmpleadoPlanilla extends Component {
                            }
                         </Modal.Footer>
                     </Modal>
-                    <Modal modalEliminar={this.state.modalEliminar} onHide={() => this.handleModalEliminar()} >
+             
+                    {/* <Modal  show={this.state.showModalEliminar}  onHide={() => this.handleModal()} >
                         <Modal.Header closeButton> Agregar Empleado
-                          
                         </Modal.Header>
                         <Modal.Body>
+
+                            Are you sure ?
                         </Modal.Body>
                         <Modal.Footer>
-                            <button className="btn btn-succes"  onClick={()=>this.peticionDelete()} >
+                            <button className="btn btn-succes"   >
                                 Si
                            </button>
                            <button className="btn btn-primary"  >
                                 No
                              </button>
-                           
                         </Modal.Footer>
-                    </Modal>
+                    </Modal> */}
                 </Container>
             </>
         )

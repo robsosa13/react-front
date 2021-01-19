@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { Table, Card } from 'react-bootstrap';
 import axios from 'axios';
 //import products from '../planilla/products'
-class Test extends Component {
+class Planillas extends Component {
     constructor(...props) {
         super(...props);
         this.state = {
-            postres: [],
+            planillaP: [],
         }
     }
     cargarDatos() {
@@ -23,7 +23,7 @@ class Test extends Component {
             .then((res) => {
                 console.log('result', res)
                 this.setState({
-                    postres: res.planillas
+                    planillaP: res.planillas
                 })
             })
             .catch(function (error) {
@@ -33,15 +33,13 @@ class Test extends Component {
     }
     componentDidMount() {
         this.cargarDatos();
-
-
         // fetch('http://localhost:4201/api/planilla-mayor')
         //   .then(res => res.json())
         //   .then(
         //     (result) => {
         //       this.setState({
 
-        //         postres: result.postres
+        //         planillaP: result.planillaP
         //       });
         //     },
         //     (error) => {
@@ -50,13 +48,13 @@ class Test extends Component {
         //   )
     }
     render() {
-        const { postres } = this.state;
-        console.log('testing', postres)
+        const { planillaP } = this.state;
+        console.log('testing', planillaP)
         return (
             <>
                  
                 <h1>Planilla de sueldos</h1>
-                <h3>Planilla detalle</h3>
+                <h5>Planilla detalle</h5>
                 <Card>
                     <Card.Img variant="top" src="holder.js/100px180" />
                     <Card.Body>
@@ -67,16 +65,6 @@ class Test extends Component {
                     </Card.Body>
                 </Card>
                 <br />
-                <Card>
-                    <Card.Body>
-                        <Card.Text>
-                            Some quick example text to build on the card title and make up the bulk
-                            of the card's content.
-                                
-                        </Card.Text>
-                    </Card.Body>
-                    <Card.Img variant="bottom" src="holder.js/100px180" />
-                </Card>
                 <Table striped bordered hover variant="dark">
                     <thead>
                         <tr>
@@ -103,10 +91,9 @@ class Test extends Component {
                     </thead>
                     <tbody>
                         {
-                            (postres)
+                            (planillaP)
                                 ?
-                                postres.map(item => (
-
+                                planillaP.map(item => (
                                     <tr key={item._id}>
                                         <td>{item.idEmpleadoPlanilla.ocupacion}</td>
                                         <td>{item.idEmpleadoPlanilla.fecha_ingreso}</td>
@@ -127,22 +114,15 @@ class Test extends Component {
                                         <td>{item.total_descuentos}</td>
                                         <td>{item.liquido_pagable}</td>
                                         <td>{item.minutos_retraso}</td>
-                                        {/* <th className="text-center" >{item.caja}</th>
-                                        <th className="text-center" >{item.caja}</th>
-                                        <th className="text-center" >{item.caja}</th>
-                                        <th className="text-center" >{item.caja}</th> */}
                                     </tr>
 
                                 ))
                                 :
                                 <tr></tr>}
-              
-
                     </tbody>
                 </Table>
-
             </>
         )
     }
 }
-export default Test
+export default Planillas

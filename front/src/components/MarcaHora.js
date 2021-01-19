@@ -12,25 +12,12 @@ class MarcaHora extends Component {
 
         return (
             <>
-                <Container>
-                    <Jumbotron>
-                        <h1>Grupo Empresarial KD </h1>
-                        <p>
-                            This is a simple hero unit, a simple jumbotron-style component for calling
-                            extra attention to featured content or information.
-                        </p>
-                        <p>
-                            This is a simple hero unit, a simple jumbotron-style component for calling
-                            extra attention to featured content or information.
-                        </p>
-                                <p>
-                                    <Button variant="primary">Ver más...</Button>
-                                </p>
-                    </Jumbotron>
+                <h1>test</h1>
+               {/* <CalendarioForm></CalendarioForm> */}
 
-                </Container>
             </>
         )
     }
 }
 export default MarcaHora
+    
