@@ -9,6 +9,7 @@ import EmpleadoPlanilla from './components/EmpleadoPlanilla'
 import Index from './components/Index'
 import MarcaHoras from './components/MarcaHora'
 import EmpleadosMH from './components/Empleados/EmpleadosMH'
+import Test from './components/test'
 function App() {
   return (
     <Router>
@@ -22,6 +23,7 @@ function App() {
           <Route path='/empleados' component={EmpleadoPlanilla} />
           <Route path='/marca-hora' component={MarcaHoras} />
           <Route path='/empleadosMH' component={EmpleadosMH} />
+          <Route path='/test' component={Test} />
           
       </main>
       <Footer>

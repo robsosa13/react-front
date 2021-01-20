@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Table, Card } from 'react-bootstrap';
 import axios from 'axios';
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+
 //import products from '../planilla/products'
 class Planillas extends Component {
     constructor(...props) {
@@ -9,6 +12,31 @@ class Planillas extends Component {
             planillaP: [],
         }
     }
+    exportPDF = () => {
+        const unit = "pt";
+        const size = "A4"; // Use A1, A2, A3 or A4
+        const orientation = "landscape"; // portrait or landscape
+    
+        const marginLeft = 40;
+        const doc = new jsPDF(orientation, unit, size);
+    
+        doc.setFontSize(15);
+    
+        const title = "Planilla de sueldos";
+        const headers = [["ocupacion", "Total a Pagar"]];
+    
+        const data = this.state.planillaP.map(elt=> [elt.idEmpleadoPlanilla.ocupacion, elt.total_ganado]);
+    
+        let content = {
+          startY: 50,
+          head: headers,
+          body: data
+        };
+    
+        doc.text(title, marginLeft, 40);
+        doc.autoTable(content);
+        doc.save("report.pdf")
+      }
     cargarDatos() {
         fetch('http://localhost:4201/api/planillas',
             {
@@ -121,6 +149,8 @@ class Planillas extends Component {
                                 <tr></tr>}
                     </tbody>
                 </Table>
+                <button className="btn btn-success" onClick={() => this.exportPDF()}>Imprimir</button>
+     
             </>
         )
     }
