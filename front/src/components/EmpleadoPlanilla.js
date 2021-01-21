@@ -111,8 +111,8 @@ class EmpleadoPlanilla extends Component {
                             <tr>
                                 <th>idusuario</th>
                                 <th>ocupacion</th>
-                                <th>Fecha de Ingres</th>
-                                <th>Fecha de salida</th>
+                                <th>Fecha Ingreso Empresa</th>
+                                <th>Fecha Salida Empresa</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
