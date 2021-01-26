@@ -1,84 +1,83 @@
-import React, { Component } from 'react'
-import { Container, Table, Jumbotron, Button } from 'react-bootstrap';
+// import React from 'react'
+// import {Table} from 'react-bootstrap'
+// class EssayForm extends React.Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             calendario:[],
+//             value: 'Please write an essay about your favorite DOM element.'
+//         };
 
-//import products from '../planilla/products'
-class MarcaHora extends Component {
-    constructor(...props) {
-        super(...props);
-        this.state = {
-        }
-    }
-    render() {
+//         this.handleChange = this.handleChange.bind(this);
+//         this.handleSubmit = this.handleSubmit.bind(this);
+//     }
 
-        return (
-            <>
-                <div className="container">
-        <form 
-            onSubmit={onSubmit}
-        >
-            <div className="form-group">
-                <input 
-                    type="text" 
-                    className="form-control" 
-                    placeholder="title" 
-                    name="title"
-                    onChange={onChange}
-                    value={form.title}
-                />
-            </div>
-            <div className="form-group">
-                <input 
-                    type="text" 
-                    className="form-control" 
-                    placeholder="description" 
-                    name="description"
-                    onChange={onChange}
-                    value={form.description}
-                />
-            </div>
-            <div className="form-group">
-                <input 
-                    type="text" 
-                    className="form-control" 
-                    placeholder="img" 
-                    name="img"
-                    onChange={onChange}
-                    value={form.img}
-                />
-            </div>
-            <div className="form-row">
-                <div className="col">
-                    <input 
-                        type="text" 
-                        className="form-control" 
-                        placeholder="leftColor" 
-                        name="leftColor"
-                        onChange={onChange}
-                        value={form.leftColor}
-                    />
-                </div>
-                <div className="col">
-                    <input 
-                        type="text" 
-                        className="form-control"
-                        placeholder="rightColor" 
-                        name="rightColor"
-                        onChange={onChange}
-                        value={form.rightColor}
-                    />    
-                </div>
-            </div>
-            
-            <button 
-                type="submit" 
-                className="btn btn-primary float-right"
-            >
-                Submit
-            </button>
-        </form>
-    </div>
-            </>
-        )
-    }
-}
-export default MarcaHora
+//     // handleChange(event) {
+//     //     this.setState({ value: event.target.value });
+//     // }
+
+//     handleSubmit(event) {
+//         // alert('An essay was submitted: ' + this.state.value);
+//         this.state.calendario.push({
+//             dia: dia,
+//             tipoHorario: tipoHorario,
+//             fecha: fecha,
+//             //precio_venta : this.activo.precio_venta
+//           });
+//         event.preventDefault();
+//     }
+
+//     render() {
+//         const { calendario } = this.state;
+//         const {form}=this.state
+//         return (
+//             <>
+//                 <form onSubmit={this.handleSubmit}>
+//                 <input type="text" name="dia"/>
+//                 <input type="text"name="tipoHorario"/>
+//                 <input type="text"name="fecha"/>
+//                     <input type="submit" value="Submit" />
+//                 </form>
+//                 <Table striped bordered hover>
+//                         <thead>
+//                             <tr>
+//                                 <th>Dia</th>
+//                                 <th>Tipo horario</th>
+//                                 <th>Fecha </th>
+                                
+//                             </tr>
+//                         </thead>
+//                         <tbody>
+//                             {/* <tr>
+//                                 <td>1</td>
+//                                 <td>Mark</td>
+//                                 <td>Otto</td>
+//                                 <td>@mdo</td>
+//                             </tr>
+//                             <tr>
+//                                 <td>2</td>
+//                                 <td>Jacob</td>
+//                                 <td>Thornton</td>
+//                                 <td>@fat</td>
+//                             </tr> */}
+//                              {(calendario)?
+//                                 calendario.map(item => (
+//                                     <tr >
+//                                         <td>{item.dia}</td>
+//                                         <td>{item.tipoHorario}</td>
+//                                         <td>{item.fecha}</td>
+                       
+                                
+//                                     </tr>
+//                                 ))
+//                                 :
+//                                 <tr></tr>}
+                   
+//                         </tbody>
+//                     </Table>
+
+//             </>
+//         );
+//     }
+// }
+// export default EssayForm

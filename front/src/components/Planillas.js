@@ -110,6 +110,7 @@ class Planillas extends Component {
                             <th>Total Ganado</th>
                             <th>Aporte NAcional Solidario</th>
                             <th>RC IVA</th>
+                            <th>AFP</th>
                             <th>Anticipos</th>
                             <th>Otros Descuentos</th>
                             <th>Total Descuentos</th>
@@ -118,9 +119,7 @@ class Planillas extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            (planillaP)
-                                ?
+                        {(planillaP)?
                                 planillaP.map(item => (
                                     <tr key={item._id}>
                                         <td>{item.idEmpleadoPlanilla.ocupacion}</td>
@@ -137,6 +136,7 @@ class Planillas extends Component {
                                         <td>{item.total_ganado}</td>
                                         <td>{item.aporte_nal_solidario}</td>
                                         <td>{item.rc_iva}</td>
+                                        <td>{item.monto_afp}</td>
                                         <td>{item.anticipos}</td>
                                         <td>{item.otros_descuentos}</td>
                                         <td>{item.total_descuentos}</td>
