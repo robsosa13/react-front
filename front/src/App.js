@@ -11,6 +11,8 @@ import MarcaHoras from './components/MarcaHora'
 import EmpleadosMH from './components/Empleados/EmpleadosMH'
 import Test from './components/test'
 import CreateCalendaio from './components/Calendario/IndexCalendario'
+import HomeScreen from './screens/HomeScreen'
+
 
 function App() {
   return (
@@ -25,7 +27,7 @@ function App() {
           <Route path='/empleados' component={EmpleadoPlanilla} />
           <Route path='/marca-hora' component={MarcaHoras} />
           <Route path='/empleadosMH' component={EmpleadosMH} />
-          <Route path='/test' component={Test} />
+          <Route path='/test' component={HomeScreen} />
           <Route path='/create-calendario' component={CreateCalendaio} />
           
       </main>

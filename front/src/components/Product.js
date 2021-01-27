@@ -41,8 +41,6 @@ const Product = ({ product }) => {
                     <td>{product.price}</td>
                     <td>{product.category}</td>
                 </tr>
-            
-          
     )
 }
 export default Product

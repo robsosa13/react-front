@@ -4,6 +4,7 @@ import { Table,  Modal, Container,ModalBody,ModalFooter, Button, Form, Row, Col 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
+import moment from "moment";
 
 class EmpleadosMH extends Component {
     constructor(...props) {
@@ -16,7 +17,7 @@ class EmpleadosMH extends Component {
                 idusuario :"",
                 ocupacion:"",
                 fecha_ingreso:"",
-                fecha_salida:"",
+                fecha_salida:"", 
                 tipoModal:""
             }
         }
@@ -26,7 +27,7 @@ class EmpleadosMH extends Component {
             {
                 method: "GET",
                 headers: {
-                    'Content-Type': 'application/json'
+                            'Content-Type': 'application/json'
                 }
             })
             .then((response) => {
@@ -109,8 +110,10 @@ class EmpleadosMH extends Component {
                     <Table striped bordered hover variant="dark">
                         <thead>
                             <tr>
-                                <th>IDempleado</th>
-                                <th>IDempresa</th>
+                                <th>Nombres</th>
+                                <th>Apellido Paterno</th>
+                                <th>Apellido Materno</th>
+                                {/* <th>IDempresa</th> */}
                                 <th>Horario entrada (Mañana)</th>
                                 <th>Horario salida (Mañana)</th>
                                 <th>Horario entrada (TARDE)</th>
@@ -126,13 +129,19 @@ class EmpleadosMH extends Component {
                                     empleadoMH.map(item => (
 
                                         <tr key={item._id}>
-                                            <td>{item.idEmpleado}</td>
-                                            <td>{item.idEmpresa}</td>
-                                            <td>{item.marcaH1}</td>
-                                            <td>{item.marcaH2}</td>
-                                            <td>{item.marcaH3}</td>
-                                            <td>{item.marcaH4}</td>
-                                            <td>{item.fechaRegistro}</td>
+                                            <td>{item.idEmpleado.nombres}</td>
+                                            <td>{item.idEmpleado.apellidoP}</td>
+                                            <td>{item.idEmpleado.apellidoM}</td>
+                                            {/* <td>{item.idEmpresa}</td> */}
+                                            <td>{ (item.marcaH1)
+                                                 ?      moment(item.marcaH1).format('LT'):'No registrado'}</td>
+                                            <td>{(item.marcaH2)
+                                                 ? moment(item.marcaH2).format('LT'):'No registrado'}</td>
+                                            <td>{(item.marcaH3)
+                                                 ? moment(item.marcaH3).format('LT'):'No registrado'}</td>
+                                            <td>{(item.marcaH4)
+                                                ? moment(item.marcaH4).format('LT'):'No registrado'}</td>
+                                            <td>{ moment(item.fechaRegistro).format('L')}</td>
                                             {/* <td>
                                                 <button className="btn btn-primary" onClick={()=>this.seleccionarEmpleado(item)} > <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>   </button>
                                                 {"   "}
