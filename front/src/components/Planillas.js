@@ -1,19 +1,121 @@
 import React, { Component } from 'react'
-import { Table, Card } from 'react-bootstrap';
+import { Table, Card, Container } from 'react-bootstrap';
 import axios from 'axios';
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import moment from "moment";
 
-//import products from '../planilla/products'
+import ReactExport from "react-export-excel";
+
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 class Planillas extends Component {
     constructor(...props) {
         super(...props);
         this.state = {
             planillaP: [],
+            boletaE:[]
         }
     }
+    test(){
+        alert('test')
+    }
+    cargarEmpleado(){
+        fetch('http://localhost:4201/api/planillas',
+        {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => {
+            return response.json()
+        })
+        .then((res) => {
+            console.log('result', res)
+            this.setState({
+                planillaP: res.planillas
+            })
+        })
+        .catch(function (error) {
+            console.log('Hubo un problema con la petición:' + error.message);
+        });
+        
+    }
+    printBoletaEmpleado(){
+
+        const unit = "pt";
+        const size = "A2";
+        const orientation = "landscape"; 
+        const marginLeft = 40;
+        const doc = new jsPDF(orientation, unit, size);
+        doc.setFontSize(15);
+        const title = "Boleta de pago ";
+        const headers = [[ "NIT Empresa","Apellido Paterno","Apellido Materno","Nombre","CI","Exp","Cargo"
+        ,"Sueldo Básico","Dias Trabajados","F-Ingreso","Mes boleta","Salario Ganado","Bono de Antiguedad","Horas extras"
+        ,"Otros Ing","AFP","Aporte Nal.","RC IVA","Anticipos otros desc","Total Ingresos","Total Egresos","Liquido Pagable"]];
+        const data = this.state.boletaE.map(elt => [
+            elt.idPlanillaMayor.nit,
+            elt.idEmpleadoPlanilla.apellidoP,
+            elt.idEmpleadoPlanilla.apellidoM,
+            elt.idEmpleadoPlanilla.nombres,
+            elt.idEmpleadoPlanilla.CI,
+            elt.idEmpleadoPlanilla.exp,
+            elt.idEmpleadoPlanilla.ocupacion,
+            elt.haber_basico,
+            elt.dias_pagados,
+            elt.idEmpleadoPlanilla.fecha_ingreso,
+            elt.idPlanillaMayor.periodo_planilla,
+            elt.haber_basico,
+            elt.bono_antiguedad,
+            elt.importe_horas_extras,
+            elt.otros_bonos,
+            elt.monto_afp,
+            elt.aporte_nal_solidario,
+            elt.rc_iva,
+            elt.otros_descuentos,'','',
+            elt.liquido_pagable,
+           ]);
+        let content = {
+            startY: 200,
+            head: headers,
+            body: data
+        };
+        doc.text(title, marginLeft, 40);
+        doc.autoTable(content);
+        doc.save("Planilla.pdf")
+
+    }
+    printBoleta = (item) => {
+        console.log(item)
+        fetch('http://localhost:4201/api/planilla/'+item,
+        {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => {
+            return response.json()
+        })
+        .then((res) => {
+            console.log('PLANILLA !!!', res)
+            this.setState({
+                boletaE: res.planillas
+            })
+            console.log('Test')
+            this.printBoletaEmpleado()
+           
+        })
+        .catch(function (error) {
+            console.log('Hubo un problema con la petición:' + error.message);
+        });
+
+        //this.setState({ isEdit: true, id: item.id });
+      };
     exportPDF = () => {
+
         const unit = "pt";
         const size = "A2"; // Use A1, A2, A3 or A4
         const orientation = "landscape"; // portrait or landscape
@@ -104,13 +206,12 @@ class Planillas extends Component {
         return (
             <>
                 <h1>Planilla de sueldos</h1>
-                <h5>Planilla detalle</h5>
+                {/* <h5>Planilla detalle</h5> */}
                 <Card>
                     <Card.Img variant="top" src="holder.js/100px180" />
                     <Card.Body>
                         <Card.Text>
-                            Some quick example text to build on the card title and make up the bulk
-                            of the card's content.
+                         Detalle Planilla
                          </Card.Text>
                     </Card.Body>
                 </Card>
@@ -118,7 +219,7 @@ class Planillas extends Component {
                 <br />
                 <br />
                 <br />
-                <Table striped bordered hover >
+                <Table className="table-responsive" striped bordered hover >
                     <thead>
                         <tr>
                             <th>Nombres</th>
@@ -182,17 +283,39 @@ class Planillas extends Component {
                                     <td>{item.total_descuentos.toFixed(3)}</td>
                                     <td>{item.liquido_pagable.toFixed(3)}</td>
                                     <td>{item.minutos_retraso}</td>
-                                    <td>  <button className="btn btn-success" >Boleta</button></td>
-
+                                    <td>  <button className="btn btn-success"
+                                    onClick={(e) => this.printBoleta(item._id, e)}>
+                                    Boleta</button>
+                                    </td>
                                 </tr>
-
                             ))
                             :
                             <tr></tr>}
                     </tbody>
                 </Table>
                 <br /> <br />
-                <button className="btn btn-success" onClick={() => this.exportPDF()}>Imprimir Planilla</button>
+                <button className="btn btn-primary" onClick={() => this.exportPDF()}>Imprimir Planilla</button>
+                <ExcelFile element={<button className="btn btn-success">Exportar Excel</button>}>
+                <ExcelSheet data={this.state.planillaP} name="planillaP">
+                    <ExcelColumn label="Dias Pagados" value="dias_pagados"/>
+                    <ExcelColumn label=" Haber Básico" value="haber_basico"/>
+                    <ExcelColumn label="Total Dias Pagados" value="total_dias_pagados"/>
+                    <ExcelColumn label="Bono Antiguedad" value="bono_antiguedad"/>
+                    <ExcelColumn label="Horas Extras" value="horas_extras"/>
+                    <ExcelColumn label="Importe horas extras" value="importe_horas_extras"/>
+                    <ExcelColumn label="Bono Produccion" value="bono_produccion"/>
+                    <ExcelColumn label="Otros Bonos" value="otros_bonos"/>
+                    <ExcelColumn label="Total Ganado" value="total_ganado"/>
+                    <ExcelColumn label="Bono AFP" value="monto_afp"/>
+                    <ExcelColumn label=" Aporte Nal. Solidario" value="aporte_nal_solidario"/>
+                    <ExcelColumn label="RC IVA" value="rc_iva"/>
+                    <ExcelColumn label="Anticipos" value="anticipos"/>
+                    <ExcelColumn label="Otros descuentos" value="otros_descuentos"/>
+                    <ExcelColumn label="Total Descuentps" value="total_descuentos"/>
+                    <ExcelColumn label="Líquido pagable" value="liquido_pagable"/>
+                    <ExcelColumn label="Minutos de retraso" value="minutos_retraso"/>
+                </ExcelSheet>
+            </ExcelFile>
             </>
         )
     }

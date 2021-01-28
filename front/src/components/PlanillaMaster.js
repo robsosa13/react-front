@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {  Table, Modal, Container, ModalBody, ModalFooter, Button, Form, Row, Col } from 'react-bootstrap';
+import { Table, Modal, Container, ModalBody, ModalFooter, Button, Form, Row, Col } from 'react-bootstrap';
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
 
@@ -79,7 +79,7 @@ class PlanillasMaster extends Component {
         console.log(this.state.form)
     }
     peticionPost = async () => {
-        await axios.post('http://localhost:4201/api/empleado-planilla/registrar', this.state.form).then(response => {
+        await axios.post('http://localhost:4201/api/planilla-mayor/nueva-planilla', this.state.form).then(response => {
             this.handleModal();
             this.cargarDatos();
         }).catch(error => {
@@ -118,176 +118,232 @@ class PlanillasMaster extends Component {
         const { form } = this.state
         return (
             <>
-        <Container>
-            <h2>Planillas</h2>
+                <Container>
+                    <h2>Planillas</h2>
                     <br />
-                    <button className="btn btn-success"onClick={() => { this.setState({ form: null, tipoModal: 'insertar' }); this.handleModal() }} >Crear planilla </button>
+                    <button className="btn btn-success" onClick={() => { this.setState({ form: null, tipoModal: 'insertar' }); this.handleModal() }} >Crear planilla </button>
                     <br />
                     <br />
-                <Table striped bordered hover size="sm">
-                    <thead>
-                        <tr>
-                            <th className="text-center" >Caja</th>
-                            <th>Razon Social</th>
-                            <th>Logo</th>
-                            <th>Nit</th>
-                            <th>Salario Mínimo</th>
-                            <th>Periodo PLanilla</th>
-                            <th>Ano Planilla</th>
-                            <th>AFP</th>
-                            <th>Ciudad</th>
-                            <th>Sucursal</th>
-                            <th>Direccion</th>
-                            <th>UFV Inicial</th>
-                            <th>Teléfono</th>
-                            <th>UFV Final</th>
-                            <th>Opciones </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* {
+                    <Table striped bordered hover size="sm">
+                        <thead>
+                            <tr>
+                                <th className="text-center" >Caja</th>
+                                <th>Razon Social</th>
+                                <th>Logo</th>
+                                <th>Nit</th>
+                                <th>Salario Mínimo</th>
+                                <th>Periodo PLanilla</th>
+                                <th>Ano Planilla</th>
+                                <th>AFP</th>
+                                <th>Ciudad</th>
+                                <th>Sucursal</th>
+                                <th>Direccion</th>
+                                <th>UFV Inicial</th>
+                                <th>Teléfono</th>
+                                <th>UFV Final</th>
+                                <th>Opciones </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {/* {
                             (item.empresa.logo)
 										?
 											<Image source = {{ uri: url_media +'logos/' + item.empresa.logo }} style={styles.imageView2} />
 										:
 											<Image source = {{ uri: url_media +'perfiles/default_perfil2.jpg' }} style={styles.imageView2} />
 						} */}
-                        {
-                            (planillaMas)
-                                ?
-                                planillaMas.map(item => (
+                            {
+                                (planillaMas)
+                                    ?
+                                    planillaMas.map(item => (
 
-                                    <tr key={item._id}>
-                                        <td>{item.caja}</td>
-                                        <td>{item.razon_social}</td>
-                                        <td>{item.logo}</td>
-                                        <td>{item.nit}</td>
-                                        <td>{item.salario_minimo}</td>
-                                        <td>{item.periodo_planilla}</td>
-                                        <td>{item.año_planilla}</td>
-                                        <td>{item.afp}</td>
-                                        <td>{item.ciudad}</td>
-                                        <td>{item.sucursal}</td>
-                                        <td>{item.direccion}</td>
-                                        <td>{item.ufv_inicial}</td>
-                                        <td>{item.telefono}</td>
-                                        <td>{item.ufv_final}</td>
-                                        <td><Link to="/planillas" className="btn btn-primary">Planilla</Link></td>
-                                        {/* <td>  <Button variant="outline-primary">Planilla</Button>{' '}</td> */}
-                                    </tr>
-                                ))
-                                :
-                                <tr></tr>}
-                    </tbody>
-                </Table>
-                <Modal show={this.state.show} onHide={() => this.handleModal()} >
-                    <Modal.Header closeButton> Crear Planilla
+                                        <tr key={item._id}>
+                                            <td>{item.caja}</td>
+                                            <td>{item.razon_social}</td>
+                                            <td>{item.logo}</td>
+                                            <td>{item.nit}</td>
+                                            <td>{item.salario_minimo}</td>
+                                            <td>{item.periodo_planilla}</td>
+                                            <td>{item.año_planilla}</td>
+                                            <td>{item.afp}</td>
+                                            <td>{item.ciudad}</td>
+                                            <td>{item.sucursal}</td>
+                                            <td>{item.direccion}</td>
+                                            <td>{item.ufv_inicial}</td>
+                                            <td>{item.telefono}</td>
+                                            <td>{item.ufv_final}</td>
+                                            <td><Link to="/planillas" className="btn btn-primary">Planilla</Link></td>
+                                            {/* <td>  <Button variant="outline-primary">Planilla</Button>{' '}</td> */}
+                                        </tr>
+                                    ))
+                                    :
+                                    <tr></tr>}
+                        </tbody>
+                    </Table>
+                    <Modal show={this.state.show} onHide={() => this.handleModal()} size="lg" >
+                        <Modal.Header closeButton> Crear Planilla
                             {/* <Modal.Title>Modal heading</Modal.Title> */}
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Form>
-                            <Row>
-                                <Col>
-                                    <Form.Group controlId="formBasicEmail">
-                                        <Form.Label>Caja</Form.Label>
-                                        <input type="text" placeholder="Caja" name="caja" onChange={this.handleChange} value={form ? form.caja : ''} />
-                                    </Form.Group>
-                                </Col>
-                                <Col>
-                                    <Form.Group controlId="formBasictext">
-                                        <Form.Label>Razon Social</Form.Label>
-                                        <input type="text" placeholder="Razon Social " name="razon_social" onChange={this.handleChange} value={form ? form.razon_social : ''} />
-                                    </Form.Group>
-                                </Col>
-                            </Row>
-                            {/* AQUI */}
-                            <Row>
-                                <Col>
-                                    <Form.Group controlId="formBasicEmail">
-                                        <Form.Label>Logo</Form.Label>
-                                        <input type="text" placeholder="Logo" name="logo" onChange={this.handleChange} value={form ? form.logo : ''} />
-                                    </Form.Group>
-                                </Col>
-                                <Col>
-                                    <Form.Group controlId="formBasictext">
-                                        <Form.Label> Título</Form.Label>
-                                        <input type="text" placeholder="Título" name="titulo" onChange={this.handleChange} value={form ? form.titulo : ''} />
-                                    </Form.Group>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <Form.Group controlId="formBasicEmail">
-                                        <Form.Label>NIT</Form.Label>
-                                        <input type="text" placeholder="NIT" name="nit" onChange={this.handleChange} value={form ? form.nit : ''} />
-                                    </Form.Group>
-                                </Col>
-                                <Col>
-                                    <Form.Group controlId="formBasicEmail">
-                                        <Form.Label>Salario Mínimo</Form.Label>
-                                        <input type="text" placeholder="Salario mínimo" name="salario_minimo" onChange={this.handleChange} value={form ? form.salario_minimo : ''} />
-                                    </Form.Group>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <Form.Group controlId="formBasicEmail">
-                                        <Form.Label>Periodo Planilla</Form.Label>
-                                        <input type="text" placeholder="Periodo Planilla" name="periodo_planilla" onChange={this.handleChange} value={form ? form.periodo_planilla : ''} />
-                                    </Form.Group>
-                                </Col>
-                                <Col>
-                                    <Form.Group controlId="formBasictext">
-                                        <Form.Label>Año Planilla</Form.Label>
-                                        <input type="text" placeholder="Año Planilla" name="año_planilla" onChange={this.handleChange} value={form ? form.año_planilla : ''} />
-                                    </Form.Group>
-                                </Col>
-                            </Row>
-                            <Row>
+                        </Modal.Header>
+                        <Modal.Body>
+      
+                                {/* <Row>
+                                    <Col xs={12} md={8}>
+                                    tes
+                                        .col-xs-12 .col-md-8
+                                  </Col>
+                                    <Col xs={4} md={4}>
+                                    test
+                                        .col-xs-6 .col-md-4
+                                   </Col>
+                               
+                                </Row>
 
-                            </Row>
-                            {/* HASTA */}
-                            <Row>
-                                <Col>
-                                    <Form.Group controlId="formBasictext">
-                                        <Form.Label>Fecha Inicio </Form.Label>
-                                        <input type="date" name="fecha_ingreso" onChange={this.handleChange} value={form ? form.fecha_ingreso : ''} />
-                                    </Form.Group>
-                                </Col>
-                                <Col>
-                                    <Form.Group controlId="formBasictext">
-                                        <Form.Label>Fecha Fin </Form.Label>
-                                        <input type="date" name="fecha_salida" onChange={this.handleChange} value={form ? form.fecha_salida : ''} />
-                                    </Form.Group>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <Form.Group controlId="formBasicEmail">
-                                        <Form.Label>Haber Básico</Form.Label>
-                                        <input type="text" placeholder="Haber Basico" name="haber_basico" onChange={this.handleChange} value={form ? form.haber_basico : ''} />
-                                    </Form.Group>
-                                </Col>
-                                <Col>
+                                <Row>
+                              
+                                    <Col xs={4} md={4}>
+                                        .col-xs-6 .col-md-4
+                                  </Col>
+                                    <Col xs={4} md={4}>
+                                        .col-xs-6 .col-md-4
+                                  </Col>
+                                    <Col xs={4} md={4}>
+                                        .col-xs-6 .col-md-4
+                                  </Col>
+                                </Row> */}
 
-                                </Col>
-                            </Row>
-                        </Form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <button className="btn btn-danger" onClick={() => { this.handleModal() }}>
-                            Cancelar
+                                <Form>
+                                    <Row>
+                                        <Col xs={4} md={4}>
+                                            <Form.Group controlId="formBasictext">
+                                                <Form.Label>Caja</Form.Label><br></br>
+                                                <input type="text" placeholder="Caja" name="caja" onChange={this.handleChange} value={form ? form.caja : ''} />
+                                            </Form.Group>
+                                        </Col>
+                                        <Col xs={4} md={4}>
+                                            <Form.Group controlId="formBasictext">
+                                                <Form.Label>Razon </Form.Label><br></br>
+                                                <input type="text" placeholder="Razon  " name="razon_social" onChange={this.handleChange} value={form ? form.razon_social : ''} />
+                                            </Form.Group>
+                                        </Col>
+                                        <Col xs={4} md={4}>
+                                            <Form.Group controlId="formBasictext">
+                                                <Form.Label>Logo</Form.Label>
+                                                <br></br>   
+                                                <input type="text" placeholder="Logo" name="logo" onChange={this.handleChange} value={form ? form.logo : ''} />
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+                                    {/* AQUI */}
+                                    <Row>
+                                        <Col xs={4} md={4}>
+                                            <Form.Group controlId="formBasictext">
+                                                <Form.Label> Título</Form.Label>
+                                                <br></br>
+                                                <input type="text" placeholder="Título" name="titulo" onChange={this.handleChange} value={form ? form.titulo : ''} />
+                                            </Form.Group>
+                                        </Col>
+
+                                        <Col xs={4} md={4}>
+                                            <Form.Group controlId="formBasicEmail">
+                                                <Form.Label>NIT</Form.Label>
+                                                <br></br>
+                                                <input type="text" placeholder="NIT" name="nit" onChange={this.handleChange} value={form ? form.nit : ''} />
+                                            </Form.Group>
+                                        </Col>
+                                        <Col xs={4} md={4}>
+                                            <Form.Group controlId="formBasicEmail">
+                                                <Form.Label>Salario </Form.Label>
+                                                <input type="text" placeholder="Salario mínimo" name="salario_minimo" onChange={this.handleChange} value={form ? form.salario_minimo : ''} />
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col xs={4} md={4}>
+                                            <Form.Group controlId="formBasicEmail">
+                                                <Form.Label>Periodo </Form.Label>
+                                                <input type="text" placeholder="Periodo Planilla" name="periodo_planilla" onChange={this.handleChange} value={form ? form.periodo_planilla : ''} />
+                                            </Form.Group>
+                                        </Col>
+                                        <Col xs={4} md={4}>
+                                            <Form.Group controlId="formBasictext">
+                                                <Form.Label>Año Planilla</Form.Label>
+                                                <input type="text" placeholder="Año Planilla" name="año_planilla" onChange={this.handleChange} value={form ? form.año_planilla : ''} />
+                                            </Form.Group>
+                                        </Col>
+                                        <Col xs={4} md={4}>
+                                            <Form.Group controlId="formBasictext">
+                                                <Form.Label>AFP </Form.Label>
+                                                <br></br>
+                                                <input type="text" name="afp" onChange={this.handleChange} value={form ? form.afp : ''} />
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+
+                                    </Row>
+                                    {/* HASTA */}
+                                    <Row>
+
+                                        <Col xs={4} md={4}>
+                                            <Form.Group controlId="formBasictext">
+                                                <Form.Label>Ciudad </Form.Label><br></br>
+                                                <input type="text" name="ciudad" onChange={this.handleChange} value={form ? form.ciudad : ''} />
+                                            </Form.Group>
+                                        </Col>
+
+                                        <Col xs={4} md={4}>
+                                            <Form.Group controlId="formBasicEmail">
+                                                <Form.Label>Sucursal</Form.Label>
+                                                <input type="text" placeholder="Sucursal" name="sucursal" onChange={this.handleChange} value={form ? form.sucursal : ''} />
+                                            </Form.Group>
+                                        </Col>
+                                        <Col xs={4} md={4}>
+                                            <Form.Group controlId="formBasicEmail">
+                                                <Form.Label>Dirección</Form.Label>
+                                                <input type="text" placeholder="Dirección" name="direccion" onChange={this.handleChange} value={form ? form.direccion : ''} />
+                                            </Form.Group>
+
+                                        </Col>
+                                    </Row>
+                   
+                                    <Row>
+                                        <Col xs={4} md={4}>
+                                            <Form.Group controlId="formBasicEmail">
+                                                <Form.Label>UFV Inicial</Form.Label>
+                                                <input type="text" placeholder="UFV Inicial" name="ufv_inicial" onChange={this.handleChange} value={form ? form.ufv_inicial : ''} />
+                                            </Form.Group>
+
+                                        </Col>
+                                        <Col xs={4} md={4}>
+                                            <Form.Group controlId="formBasicEmail">
+                                                <Form.Label>Teléfono</Form.Label>
+                                                <input type="text" placeholder="Telefono" name="telefono" onChange={this.handleChange} value={form ? form.telefono : ''} />
+                                            </Form.Group>
+                                        </Col>
+                                        <Col xs={4} md={4}>
+                                            <Form.Group controlId="formBasicEmail">
+                                                <Form.Label>UFV Final</Form.Label>
+                                                <input type="text" placeholder="UFV Final" name="ufv_final" onChange={this.handleChange} value={form ? form.ufv_final : ''} />
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+                                </Form>
+             
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <button className="btn btn-danger" onClick={() => { this.handleModal() }}>
+                                Cancelar
                           </button>
-                        {this.state.tipoModal == 'insertar' ?
-                            <button className="btn btn-succes" onClick={() => this.peticionPost()} >
-                                Insertar
+                            {this.state.tipoModal == 'insertar' ?
+                                <button className="btn btn-succes" onClick={() => this.peticionPost()} >
+                                    Insertar
                            </button> :
-                            <button className="btn btn-primary"  >
-                                Actualizar
+                                <button className="btn btn-primary"  >
+                                    Actualizar
                              </button>
-                        }
-                    </Modal.Footer>
-                </Modal></Container>
+                            }
+                        </Modal.Footer>
+                    </Modal></Container>
             </>
         )
     }

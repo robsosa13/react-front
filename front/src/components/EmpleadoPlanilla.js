@@ -180,6 +180,7 @@ class EmpleadoPlanilla extends Component {
                     <Modal.Body>
                         <Form>
                             <Row>
+                                
                                 <Col>
                                     <Form.Group controlId="formBasicEmail">
                                         <Form.Label>Nombres</Form.Label>
@@ -203,7 +204,7 @@ class EmpleadoPlanilla extends Component {
                                 </Col>
                                 <Col>
                                     <Form.Group controlId="formBasictext">
-                                        <Form.Label> C I</Form.Label>
+                                        <Form.Label> C I</Form.Label><br></br>
                                         <input type="text" placeholder="Ocupacion" name="CI" onChange={this.handleChange} value={form ? form.CI : ''} />
                                     </Form.Group>
                                 </Col>
@@ -226,7 +227,7 @@ class EmpleadoPlanilla extends Component {
                                 <Col>
                                     <Form.Group controlId="formBasicEmail">
                                         <Form.Label>Sexo</Form.Label>
-                                        <input type="text" placeholder="Id Usuario" name="fecha_nacimiento" onChange={this.handleChange} value={form ? form.fecha_nacimiento : ''} />
+                                        <input type="text" placeholder="Sexo" name="sexo" onChange={this.handleChange} value={form ? form.sexo : ''} />
                                     </Form.Group>
                                 </Col>
                                 <Col>
@@ -236,15 +237,12 @@ class EmpleadoPlanilla extends Component {
                                     </Form.Group>
                                 </Col>
                             </Row>
-                            <Row>
 
-                            </Row>
-                            {/* HASTA */}
                             <Row>
                                 <Col>
                                     <Form.Group controlId="formBasictext">
-                                        <Form.Label>Fecha Inicio </Form.Label>
-                                        <input type="date" name="fecha_ingreso" onChange={this.handleChange} value={form ? form.fecha_ingreso : ''} />
+                                        <Form.Label>Fecha Ingreso a la empresa </Form.Label>
+                                        <input type="date"  name="fecha_ingreso" onChange={this.handleChange} value={form ? form.fecha_ingreso : ''} />
                                     </Form.Group>
                                 </Col>
                                 <Col>
@@ -272,10 +270,10 @@ class EmpleadoPlanilla extends Component {
                             Cancelar
                           </button>
                         {this.state.tipoModal == 'insertar' ?
-                            <button className="btn btn-succes" onClick={() => this.peticionPost()} >
-                                Insertar
+                            <button className="btn btn-success" onClick={() => this.peticionPost()} >
+                                Agregar
                            </button> :
-                            <button className="btn btn-primary"  >
+                            <button className="btn btn-success" >
                                 Actualizar
                              </button>
                         }

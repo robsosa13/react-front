@@ -118,7 +118,7 @@ class EmpleadosMH extends Component {
                                 <th>Horario salida (Mañana)</th>
                                 <th>Horario entrada (TARDE)</th>
                                 <th>Horario salida(TARDE)</th>
-                                <th>Fecha</th>
+                                {/* <th>Fecha</th> */}
 
                             </tr>
                         </thead>
@@ -141,7 +141,7 @@ class EmpleadosMH extends Component {
                                                  ? moment(item.marcaH3).format('LT'):'No registrado'}</td>
                                             <td>{(item.marcaH4)
                                                 ? moment(item.marcaH4).format('LT'):'No registrado'}</td>
-                                            <td>{ moment(item.fechaRegistro).format('L')}</td>
+                                            {/* <td>{ moment(item.fechaRegistro).format('L')}</td> */}
                                             {/* <td>
                                                 <button className="btn btn-primary" onClick={()=>this.seleccionarEmpleado(item)} > <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>   </button>
                                                 {"   "}

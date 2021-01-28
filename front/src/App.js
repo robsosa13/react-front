@@ -12,6 +12,8 @@ import EmpleadosMH from './components/Empleados/EmpleadosMH'
 import Test from './components/test'
 import CreateCalendaio from './components/Calendario/IndexCalendario'
 import HomeScreen from './screens/HomeScreen'
+import Excel from './components/excel'
+
 
 
 function App() {
@@ -27,7 +29,7 @@ function App() {
           <Route path='/empleados' component={EmpleadoPlanilla} />
           <Route path='/marca-hora' component={MarcaHoras} />
           <Route path='/empleadosMH' component={EmpleadosMH} />
-          <Route path='/test' component={HomeScreen} />
+          <Route path='/test' component={Excel} />
           <Route path='/create-calendario' component={CreateCalendaio} />
           
       </main>
