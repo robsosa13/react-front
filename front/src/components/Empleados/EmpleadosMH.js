@@ -110,7 +110,7 @@ class EmpleadosMH extends Component {
                     <Table striped bordered hover variant="dark">
                         <thead>
                             <tr>
-                                <th>Nombres</th>
+                                {/* <th>Nombres</th> */}
                                 <th>Apellido Paterno</th>
                                 <th>Apellido Materno</th>
                                 {/* <th>IDempresa</th> */}
@@ -129,7 +129,7 @@ class EmpleadosMH extends Component {
                                     empleadoMH.map(item => (
 
                                         <tr key={item._id}>
-                                            <td>{item.idEmpleado.nombres}</td>
+                                            {/* <td>{item.idEmpleado.nombres}</td> */}
                                             <td>{item.idEmpleado.apellidoP}</td>
                                             <td>{item.idEmpleado.apellidoM}</td>
                                             {/* <td>{item.idEmpresa}</td> */}

@@ -156,7 +156,6 @@ class PlanillasMaster extends Component {
                                 (planillaMas)
                                     ?
                                     planillaMas.map(item => (
-
                                         <tr key={item._id}>
                                             <td>{item.caja}</td>
                                             <td>{item.razon_social}</td>
@@ -185,32 +184,6 @@ class PlanillasMaster extends Component {
                             {/* <Modal.Title>Modal heading</Modal.Title> */}
                         </Modal.Header>
                         <Modal.Body>
-      
-                                {/* <Row>
-                                    <Col xs={12} md={8}>
-                                    tes
-                                        .col-xs-12 .col-md-8
-                                  </Col>
-                                    <Col xs={4} md={4}>
-                                    test
-                                        .col-xs-6 .col-md-4
-                                   </Col>
-                               
-                                </Row>
-
-                                <Row>
-                              
-                                    <Col xs={4} md={4}>
-                                        .col-xs-6 .col-md-4
-                                  </Col>
-                                    <Col xs={4} md={4}>
-                                        .col-xs-6 .col-md-4
-                                  </Col>
-                                    <Col xs={4} md={4}>
-                                        .col-xs-6 .col-md-4
-                                  </Col>
-                                </Row> */}
-
                                 <Form>
                                     <Row>
                                         <Col xs={4} md={4}>
@@ -281,7 +254,7 @@ class PlanillasMaster extends Component {
                                     <Row>
 
                                     </Row>
-                                    {/* HASTA */}
+   
                                     <Row>
 
                                         <Col xs={4} md={4}>

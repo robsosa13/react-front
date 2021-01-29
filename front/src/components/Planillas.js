@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { Table, Card, Container } from 'react-bootstrap';
+import { Table, Card, Container ,Form,Modal,Row,Col} from 'react-bootstrap';
 import axios from 'axios';
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import moment from "moment";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import ReactExport from "react-export-excel";
 
 const ExcelFile = ReactExport.ExcelFile;
@@ -15,8 +16,50 @@ class Planillas extends Component {
         super(...props);
         this.state = {
             planillaP: [],
-            boletaE:[]
+            boletaE:[],
+            show: false,
+      
+            form: {
+                id:"",
+                dias_pagados: "",
+                horas_extras: "",
+                bono_produccion: "",
+                otros_bonos: "",
+                rc_iva: "",
+                anticipos: "",
+                otros_descuentos: "",
+            }
         }
+    }
+    handleModal() {
+      //  console.log('test')
+        this.setState({ show: !this.state.show })
+    }
+    handleChange = async e => {
+        e.persist();
+        await this.setState({
+            form: {
+                ...this.state.form,
+                [e.target.name]: e.target.value
+            }
+        })
+        console.log(this.state.form)
+    }
+    seleccionar=(planillaEmpleado)=>{
+
+        this.setState({
+            form :{ 
+                id:planillaEmpleado._id,
+                dias_pagados:planillaEmpleado.dias_pagados,
+                horas_extras:planillaEmpleado.horas_extras,
+                bono_produccion:planillaEmpleado.bono_produccion,
+                otros_bonos:planillaEmpleado.otros_bonos,
+                rc_iva:planillaEmpleado.rc_iva,
+                anticipos:planillaEmpleado.anticipos,
+                otros_descuentos:planillaEmpleado.otros_descuentos,
+            }
+        })
+   
     }
     test(){
         alert('test')
@@ -137,21 +180,21 @@ class Planillas extends Component {
             elt.idEmpleadoPlanilla.ocupacion,
             moment(elt.idEmpleadoPlanilla.fecha_ingreso).format("L"),
             elt.dias_pagados,
-            elt.idEmpleadoPlanilla.haber_basico.toFixed(3),
-            elt.total_dias_pagados.toFixed(3),
-            elt.bono_antiguedad.toFixed(3),
+            elt.idEmpleadoPlanilla.haber_basico.toFixed(2),
+            elt.total_dias_pagados.toFixed(2),
+            elt.bono_antiguedad.toFixed(2),
             elt.horas_extras,
             elt.importe_horas_extras,
             elt.bono_produccion,
             elt.otros_bonos,
-            elt.total_ganado.toFixed(3),
-            elt.monto_afp.toFixed(3),
-            elt.aporte_nal_solidario.toFixed(3),
+            elt.total_ganado.toFixed(2),
+            elt.monto_afp.toFixed(2),
+            elt.aporte_nal_solidario.toFixed(2),
             elt.rc_iva,
             elt.anticipos,
             elt.otros_descuentos,
-            elt.total_descuentos.toFixed(3),
-            elt.liquido_pagable.toFixed(3)]);
+            elt.total_descuentos.toFixed(2),
+            elt.liquido_pagable.toFixed(2)]);
         let content = {
             startY: 200,
             head: headers,
@@ -162,6 +205,17 @@ class Planillas extends Component {
         doc.autoTable(content);
         doc.save("Planilla.pdf")
     }
+    editPlanilla=async()=>{
+        console.log('test !!')
+        await axios.post('http://localhost:4201/api/planilla-edit', this.state.form).then(response => {
+            console.log('test !!')
+            this.handleModal();
+            this.cargarDatos();
+        }).catch(error => {
+            console.log(error.message)
+        })
+    }
+  
     cargarDatos() {
         fetch('http://localhost:4201/api/planillas',
             {
@@ -202,6 +256,7 @@ class Planillas extends Component {
     }
     render() {
         const { planillaP } = this.state;
+        const { form } = this.state
         console.log('testing', planillaP)
         return (
             <>
@@ -249,6 +304,7 @@ class Planillas extends Component {
                             <th>Total Descuentos</th>
                             <th>Liquido pagable</th>
                             <th>Minutos retraso</th>
+                            <th>Editar</th>
                             <th> Boleta de pago</th>
                         </tr>
                     </thead>
@@ -268,21 +324,22 @@ class Planillas extends Component {
                                     <td>{item.idEmpleadoPlanilla.fecha_salida}</td>
                                     <td>{item.dias_pagados}</td>
                                     <td>{item.haber_basico}</td>
-                                    <td>{item.total_dias_pagados.toFixed(3)}</td>
+                                    <td>{item.total_dias_pagados.toFixed(2)}</td>
                                     <td>{item.bono_antiguedad.toFixed(3)}</td>
                                     <td>{item.horas_extras}</td>
-                                    <td>{item.importe_horas_extras.toFixed(3)}</td>
+                                    <td>{item.importe_horas_extras.toFixed(2)}</td>
                                     <td>{item.bono_produccion}</td>
                                     <td>{item.otros_bonos}</td>
                                     <td>{item.total_ganado.toFixed(3)}</td>
-                                    <td>{item.aporte_nal_solidario.toFixed(3)}</td>
+                                    <td>{item.aporte_nal_solidario.toFixed(2)}</td>
                                     <td>{item.rc_iva}</td>
                                     <td>{item.monto_afp.toFixed(3)}</td>
                                     <td>{item.anticipos}</td>
-                                    <td>{item.otros_descuentos.toFixed(3)}</td>
-                                    <td>{item.total_descuentos.toFixed(3)}</td>
-                                    <td>{item.liquido_pagable.toFixed(3)}</td>
+                                    <td>{item.otros_descuentos.toFixed(2)}</td>
+                                    <td>{item.total_descuentos.toFixed(2)}</td>
+                                    <td>{item.liquido_pagable.toFixed(2)}</td>
                                     <td>{item.minutos_retraso}</td>
+                                    <button className="btn btn-primary" onClick={() => {this.seleccionar(item);this.handleModal() }} > <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>   </button>
                                     <td>  <button className="btn btn-success"
                                     onClick={(e) => this.printBoleta(item._id, e)}>
                                     Boleta</button>
@@ -293,6 +350,76 @@ class Planillas extends Component {
                             <tr></tr>}
                     </tbody>
                 </Table>
+                <Modal show={this.state.show} onHide={() => this.handleModal()} >
+                    <Modal.Header closeButton> Editar Planilla
+                            {/* <Modal.Title>Modal heading</Modal.Title> */}
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Row>
+                                <Col>
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Label>Horas Extras</Form.Label>
+                                        <input type="text" placeholder="horas_extras" name="horas_extras" onChange={this.handleChange} value={form ? form.horas_extras: ''} />
+                                    </Form.Group>
+                                </Col>
+                                <Col>
+                                    <Form.Group controlId="formBasictext">
+                                        <Form.Label>Bono Producción</Form.Label>
+                                        <input type="text" placeholder="bono_produccion" name="bono_produccion" onChange={this.handleChange} value={form ? form.bono_produccion: ''} />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Label>Otros Bonos</Form.Label>
+                                        <input type="text" placeholder="otros_bonos" name="otros_bonos" onChange={this.handleChange} value={form ? form.otros_bonos: ''} />
+                                    </Form.Group>
+                                </Col>
+                                <Col>
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Label>Anticipos</Form.Label>
+                                        <input type="text" placeholder="anticipos" name="anticipos" onChange={this.handleChange} value={form ? form.anticipos: ''} />
+                                    </Form.Group>
+                                </Col>
+                                {/* <Col>
+                                    <Form.Group controlId="formBasictext">
+                                        <Form.Label> RC iva</Form.Label><br></br>
+                                        <input type="text" placeholder="rc_iva" name="rc_iva" onChange={this.handleChange} value={form ? form.rc_iva: ''} />
+                                    </Form.Group>
+                                </Col> */}
+                            </Row>
+                            <Row>
+                                {/* <Col>
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Label>Anticipos</Form.Label>
+                                        <input type="text" placeholder="anticipos" name="anticipos" onChange={this.handleChange} value={form ? form.anticipos: ''} />
+                                    </Form.Group>
+                                </Col> */}
+                              
+                                <Col>
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Label>Otros descuentos</Form.Label>
+                                        <input type="number" placeholder="otros_descuentos" name="otros_descuentos" onChange={this.handleChange} value={form ? form.otros_descuentos: ''} />
+                                    </Form.Group>
+                                </Col>
+                                <Col></Col>
+                            </Row>
+                         
+
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button className="btn btn-danger" onClick={() => { this.handleModal() }}>
+                            Cancelar
+                          </button>
+
+                            <button className="btn btn-success" onClick={() => this.editPlanilla()} >
+                                Editar
+                           </button>
+                    </Modal.Footer>
+                </Modal>
                 <br /> <br />
                 <button className="btn btn-primary" onClick={() => this.exportPDF()}>Imprimir Planilla</button>
                 <ExcelFile element={<button className="btn btn-success">Exportar Excel</button>}>
