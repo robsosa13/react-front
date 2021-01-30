@@ -9,7 +9,6 @@ const ProductSreen = ({ match }) => {
     console.log(product)
     return (
         <>
-
             <Link className='btn btn-dark my-3' to='/planillas'>Atras</Link>
             <Row>
                 <Col md={6}>

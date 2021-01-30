@@ -171,7 +171,16 @@ class PlanillasMaster extends Component {
                                             <td>{item.ufv_inicial}</td>
                                             <td>{item.telefono}</td>
                                             <td>{item.ufv_final}</td>
-                                            <td><Link to="/planillas" className="btn btn-primary">Planilla</Link></td>
+                                            {/* <td><Link to="/planillas" className="btn btn-primary">Planilla</Link></td> */}
+                                            <td> 
+                                                <button>
+                                                    
+                                                </button>
+                                                  <Link to={`/planillas/${item._id}`} >  test</Link>
+                                                  
+                                                  
+                                                  </td>
+                                          
                                             {/* <td>  <Button variant="outline-primary">Planilla</Button>{' '}</td> */}
                                         </tr>
                                     ))
