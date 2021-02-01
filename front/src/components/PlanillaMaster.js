@@ -86,6 +86,13 @@ class PlanillasMaster extends Component {
             console.log(error.message)
         })
     }
+    
+    //  test (){
+    //     for (let x = firstDayIndex; x > 0; x--) {
+    //         days += `<div class="prev-date">${prevLastDay - x + 1}</div>`;
+    //       }
+    // }
+
     seleccionarEmpleado = (empleado) => {
         console.log('test', empleado)
         this.setState({

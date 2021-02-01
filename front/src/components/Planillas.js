@@ -18,7 +18,7 @@ class Planillas extends Component {
             planillaP: [],
             boletaE:[],
             show: false,
-      
+                    
             form: {
                 id:"",
                 dias_pagados: "",
